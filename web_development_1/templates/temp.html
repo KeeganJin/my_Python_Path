@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temp</title>
+</head>
+<body>
+
+    <span id="txt">Welcome to my website </span>
+
+    <ul id="city">    </ul>
+
+    <input type="button" value="click to loop" onclick="show()">
+
+    <h1 id="txt_1">German Telkom</h1>
+<!--    Using JQuery, it makes the process simple-->
+
+    <script src="static/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript">
+        $("#txt_1").text("it Sucks");
+    </script>
+
+    <script type="text/javascript">
+        var cityList = ["Beijing","Shanghai","ShenZhen"];
+        for(var idx in cityList){
+            var text = cityList[idx];
+
+            //create <li>
+            var tag = document.createElement("li");
+            tag.innerText = text;
+
+            //add to id=city, DOM
+            var parentTag = document.getElementById("city");
+            parentTag.appendChild(tag);
+
+        }
+    </script>
+
+    <script type="text/javascript">
+        function show(){
+            var tag = document.getElementById("txt");
+            var dataString = tag.innerText;
+
+            var firstChar = dataString[0];
+            var otherString = dataString.substring(1,dataString.length);
+            var newText = otherString + firstChar;
+
+            //update content in HTML tag
+            tag.innerText = newText;
+
+            console.log(dataString);
+        }
+        //timer
+        // setInterval(show,1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .menus{
+            width:200px;
+            height:800px;
+            border: 1px solid #ff0000;
+        }
+        .menus .header{
+            background-color:gold;
+        }
+
+        .hide{
+            display:none;
+        }
+        .menus .content a{
+            display:block;
+            padding:5px 5px;
+            border-bottom: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menus">
+        <div class="item">
+            <div class="header" onclick="clickMe(this);">Beijing</div>
+            <div class="content hide">
+                <a>bejing 1</a>
+                <a>bejing 2</a>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="header">Shanghai</div>
+            <div class="content hide">
+                <a>Shanghai 1</a>
+                <a>Shanghai 2</a>
+            </div>
+
+        </div>
+    </div>
+
+    <input type="text" id="txtUser" placeholder="User Name">
+    <input type="text" id ="txtEmail" placeholder="Email">
+    <input type="button" value="submit" onclick="getInfo()"/>
+
+    <script src="static/jquery-3.7.1.min.js"></script>
+    <script>
+        function getInfo(){
+            var username = $("#txtUser").val();
+            var email = $("#txtEmail").val();
+        }
+    </script>
+
+    <script>
+        function clickMe(self){
+
+            //find the silbings tag
+            var hasHide = $(self).next().hasClass("hide");
+
+            if (hasHide){
+                //remove class "hide"
+                $(self).next().removeClass("hide");
+            } else {
+                $(self).next().addClass("hide");
+            }
+        }
+    </script>
+
+</body>
+
+
+
+</html>

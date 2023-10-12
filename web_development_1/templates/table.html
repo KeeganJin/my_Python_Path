@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>liu</td>
+                <td>
+                    <input type="button"value="delete" class="delete"/>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>guan</td>
+                <td>
+                    <input type="button"value="delete" class="delete"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+<script src="static/jquery-3.7.1.min.js"></script>
+<script>
+    $(function(){
+    //    find the tag whose class is delete
+        $(".delete").click(function(){
+            $(this).parent().parent().remove();
+        });
+    })
+</script>
+</body>
+</html>
