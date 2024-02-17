@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from app01 import views
+from app01.view import task
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    path('depart/list/', views.depart_list),
+    path('depart/add/', views.depart_add),
+    path('depart/delete/',views.depart_delete),
+    path('depart/<int:nid>/edit/',views.depart_edit),
+
+    path('user/list/',views.user_list),
+
+    path('task/list/',task.task_list),
+    path('task/ajax/',task.task_ajax)
 ]
+

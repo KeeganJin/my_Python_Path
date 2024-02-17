@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+
+
+        <a class="btn btn-default" href="/user/add/" role="button">Create User</a>
+
+        {#Panel#}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                User List
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <caption>Optional table caption.</caption>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Password</th>
+                        <th>age</th>
+                        <th>Account</th>
+                        <th>create time</th>
+                        <th>gender</th>
+                        <th>department</th>
+                        <th>Operation</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for obj in queryset %}
+                        <tr>
+                            <td>{{ obj.id }}</td>
+                            <td>{{ obj.name }}</td>
+                            <td>{{ obj.password }}</td>
+                            <td>{{ obj.age }}</td>
+                            <td>{{ obj.account }}</td>
+                            <td>{{ obj.create_time|date:"Y-m-d"}}</td>
+                            <td>{{ obj.get_gender_display}}</td>
+                            <td>{{ obj.depart.title }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="/user/{{ obj.id }}/edit/">Edit</a>
+                                <a class="btn btn-primary" href="/user/delete/?nid={{ obj.id }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

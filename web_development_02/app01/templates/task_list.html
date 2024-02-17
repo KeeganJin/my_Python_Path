@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div id="container">
+        <h1>
+            task management
+        </h1>
+        <h3>
+            Example
+        </h3>
+        <input type="button" class="btn btn-primary" value="Click" onclick="clickMe();"/>
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        function clickMe(){
+            console.log("clicked!")
+            $.ajax({
+                url:"/task/ajax/",
+                type:"get",
+                data:{
+                    n1:123,
+                    n2:456,
+                },
+                success:function(res){
+                    console.log("res")
+                }
+            })
+        }
+    </script>
+{% endblock %}
