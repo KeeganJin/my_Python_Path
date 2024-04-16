@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div>
+        <div class="container">
+            <div>
+                {#            createa a link to a href#}
+                <a class="btn btn-primary" href="/fancy/add/">Create Mobi</a>
+                <a class="btn btn-primary" href="#">existing User</a>
+
+                <div style="float: right">
+                    <form method="get" class="d-flex" role="search">
+                        <input name="filter" class="form-control me-2" type="search" placeholder="Filter" value="{{ filter }}"  aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+
+            </div>
+
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">Panel heading</div>
+                <div class="panel-body">
+                    <p>panel body</p>
+                </div>
+
+                <!-- Table -->
+                <table class="table">
+                    <thead>
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Mobile</th>
+                        <th>Price</th>
+                        <th>Level</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for obj in fancy_queryset %}
+                        <tr>
+                            <th>{{ obj.id }}</th>
+                            <td>{{ obj.mobile }}</td>
+                            <td>{{ obj.price }}</td>
+                            <td>{{ obj.level }}</td>
+                            <td>{{ obj.status }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="/user/{{ obj.id }}/edit/">Edit</a>
+                                {#                            nid is a way of passing arguments#}
+                                <a class="btn btn-danger" href="/user/delete/?n_id={{ obj.id }}">Delete</a>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

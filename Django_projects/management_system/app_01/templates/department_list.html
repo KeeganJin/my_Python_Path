@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div>
+    <div class="container">
+        <div>
+            {#            createa a link to a href#}
+            <a class="btn btn-primary" href="/department/add/">Create Department</a>
+            <a class="btn btn-primary" href="/test">existing department</a>
+        </div>
+
+
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Panel heading</div>
+            <div class="panel-body">
+                <p>panel body</p>
+            </div>
+
+            <!-- Table -->
+            <table class="table">
+                <thead>
+                <tr>
+
+                    <th>ID</th>
+                    <th>Department</th>
+                    <th>Operation</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for obj in department_queryset %}
+                    <tr>
+                        <th>{{ obj.id }}</th>
+                        <td>{{ obj.title }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="/department/{{ obj.id }}/edit/">Edit</a>
+{#                            nid is a way of passing arguments#}
+                            <a class="btn btn-danger" href="/department/delete/?n_id={{ obj.id }}">Delete</a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

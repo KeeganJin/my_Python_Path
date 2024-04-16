@@ -1,0 +1,3 @@
+# Ajax
+
+* rely on JQuery

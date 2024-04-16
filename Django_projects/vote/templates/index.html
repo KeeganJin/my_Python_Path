@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="header" onclick="my_Click()">Click me</div>
+
+<ul id="city"></ul>
+
+<div id="no1" onclick="roll_it()" >I am sooooo high, wannna more~~</div>
+
+<script type="text/javascript">
+    function my_Click(){
+        alert("ohhh! u clicked me~~~");
+    }
+
+    function roll_it(){
+        var tag = document.getElementById("no1");
+        var dataString  = tag.innerText;
+
+
+        var firstChar = dataString[0]
+        var otherString = dataString.substring(1,dataString.len);
+        var newString = otherString + firstChar;
+
+        tag.innerText = newString;}
+    setInterval(roll_it,1000)
+
+    var cityList = ["beijing","shanghai","shenzhen"];
+    for (var idx in cityList){
+        var text = cityList[idx];
+
+        var tag = document.createElement("li");
+        tag.innerText = text;
+
+        var parentTag = document.getElementById("city");
+        parentTag.appendChild(tag);
+    }
+
+    
+
+</script>
+
+</body>
+</html>

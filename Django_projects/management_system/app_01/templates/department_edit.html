@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Edit department</div>
+        <br>
+        <div class="panel-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Department Name</label>
+                    <input class="form-control" value="{{ row_object.title }}" name="department_name">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+
