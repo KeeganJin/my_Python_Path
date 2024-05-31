@@ -1,12 +1,13 @@
 # my_Python_Path
 
-This folder contains some python projects that I did to learn relevant skills, including, back-end development, restful API, etc..
+My learning path of Python development, and some python projects that I did to learn relevant stacks, e.g, Django, restful API, etc..
 
-In each  sub-folder, there will be relevant notes that could be used to learn and review.
+[Basics](./advanced_python/)
+[Django Rest Framework Tutorial](./rest_api/)
+[Djano + Vue](./vue_learning/) + [notes](./notes/Django)
+[Web Development 1](./web_development_1)
+[Web Development 2](./web_development_02/)
 
-I will sort thing out later to make a cleaner catalogue.
-
-### Basics
 
 #### Basic Necessary Frontend knowledge regarding HTML, CSS, JavaScript
 
@@ -16,11 +17,4 @@ Flask + MySQL [showcase](./Python_SQL)
 
 
 
-### Django
-
-[notes](./notes/Django)
-
-## Advanced python
-* [Link](advanced_python/advanced_python_notes.md)
-* 
 

@@ -63,7 +63,31 @@ within the app folder
 * bootstrap in head
 * Place Jquery the following scripts near the end of your pages, right before the closing body tag
 
-## 2 Data Operation
+## 2. Frontend part 
+### Template Inherit
+
+**layout.html**
+
+```html
+<div>
+    <div class="container">
+        {% block content %} {% endblock %}
+    </div>
+
+</div>
+```
+
+```html
+{%  extends 'layout.html' %}
+
+{% block content %}
+
+    
+    
+{% endblock %}
+```
+
+## 3 Data Operation
 
 access data via views 
 
@@ -145,29 +169,11 @@ class UserInfo(models.Model):
 
 
 ```
+
+Check, Error, more convinient
+
 ### Form
-### ModelForm
+## ModelForm (CRUD for DB)
+widget 可以加在views中
 
-## 3. Frontend part 
-### Template Inherit
-
-**layout.html**
-
-```html
-<div>
-    <div class="container">
-        {% block content %} {% endblock %}
-    </div>
-
-</div>
-```
-
-```html
-{%  extends 'layout.html' %}
-
-{% block content %}
-
-    
-    
-{% endblock %}
-```
+###

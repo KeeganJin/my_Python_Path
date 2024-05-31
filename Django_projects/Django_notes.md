@@ -67,55 +67,37 @@ var text=document.getElementById('input1').value;
 A simple fast way to achieve same thing using DOM
 get content, set content. 
 
+## Database
+pymysql
+```python
+
+#Connect to the database
+connection = pymysql.conncect()
+
+
+```
 
 ## ORM
+* operate on tables in database
+* operate on data
 
-## Model Form
-
-* create a class of the form/table
-* use it.
-* it can be re-used many times, check the fancy_num and user of the management sys project.
-
-### Filter
-
+Object class in models represent table
 ```python
-models.UserInfo.objects.filter(name = "lu",id=12)
-dict = {"name":lu,id:12}
-models.UserInfo.objects.filter(**dict)
-
-
-models.UserInfo.objects.filter(id=12)
-models.UserInfo.objects.filter(name__startswith="xx")
-models.UserInfo.objects.filter(name__contains="xx")
-```
-pass the arguments from front to the end by name.
-```html
-<form method="get" class="d-flex" role="search">
-    <input name="filter" class="form-control me-2" type="search" placeholder="Filter" value="{{ filter }}"  aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
-```
-```python
-def fancy_num_list(request):
-    data_dict = {}
-
-    filter = request.GET.get('filter')
-
-    if filter:
-        queryset = models.FancyNum.objects.filter(mobile__contains=filter)
-        return render(request, 'fancy_number_list.html', {"fancy_queryset": queryset,"filter":filter})
-
-    queryset = models.FancyNum.objects.all().order_by("-level")
-    return render(request,'fancy_number_list.html',{"fancy_queryset": queryset,"filter":filter})
-
+class UserInfo(models.Model):
+    name = models.CharField(max_length =32)
+    password = models.CharField(max_length=64)
+    age = models.IntegerField()
+# is equal to sql query, app01 is the app name
+"""
+create table app01_userinfo(
+    id bigint auto_increment primary key,
+    name varchar(32),
+    password varchar(64),
+    age int
+)
+"""
 ```
 
-## Pagination 
-not done yet, can refer to django pagination
-
-## Cookie and Session
-* 短链接： 一次请求， 一次响应。
-* 
 
 
 
