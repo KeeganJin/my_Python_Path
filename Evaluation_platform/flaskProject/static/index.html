@@ -22,6 +22,7 @@
     <!-- Task List -->
     <div id="task-list" class="hidden">
       <h2>Select a Task</h2>
+        <button onclick="showUserInfo()" style="margin-bottom: 1rem;">🔄 Change User Info</button>
       <ul id="tasks"></ul>
     </div>
 
@@ -77,14 +78,21 @@
 </div>
 
 
-      <!-- Upload Section -->
-      <div style="margin-top: 2rem;">
-        <h3>Upload File</h3>
-        <input type="file" id="uploadInput" />
-        <button onclick="uploadFile()">Upload</button>
-        <label><input type="checkbox" id="override" /> Allow override</label>
-        <p id="uploadStatus"></p>
-      </div>
+      <!-- Upload Section with Drag-and-Drop -->
+<div style="margin-top: 2rem;">
+  <h3>Upload File</h3>
+
+  <!-- Drag and Drop Target -->
+  <div id="uploadDropZone" class="drop-zone" style="padding: 1rem; border: 2px dashed #999; text-align: center; border-radius: 8px;">
+    Drag & drop your .pnml file here or choose below:
+  </div>
+
+  <!-- Traditional File Input -->
+  <input type="file" id="uploadInput" />
+  <button onclick="uploadFile()">Upload</button>
+  <label><input type="checkbox" id="override" /> Allow override</label>
+  <p id="uploadStatus"></p>
+</div>
 
       <button onclick="goBack()">Back to Tasks</button>
     </div>

@@ -12,6 +12,20 @@ function saveUserInfo() {
   loadTasks();
 }
 
+
+function showUserInfo() {
+  // Show the user info form again
+  document.getElementById("task-list").classList.add("hidden");
+  document.getElementById("user-info").classList.remove("hidden");
+
+  // Pre-fill existing values from localStorage
+  const storedId = localStorage.getItem("userId") || "";
+  const storedEmail = localStorage.getItem("email") || "";
+  document.getElementById("userId").value = storedId;
+  document.getElementById("email").value = storedEmail;
+}
+
+
 // Load task list from backend
 function loadTasks() {
   fetch("/tasks")
@@ -27,10 +41,11 @@ function loadTasks() {
 function showTaskList() {
   document.getElementById("user-info").classList.add("hidden");
   document.getElementById("task-list").classList.remove("hidden");
-  const uploaded = JSON.parse(localStorage.getItem("uploadedTasks") || "[]");
 
+  const uploaded = JSON.parse(localStorage.getItem("uploadedTasks") || "[]");
   const taskList = document.getElementById("tasks");
   taskList.innerHTML = "";
+
   tasks.forEach(task => {
     const li = document.createElement("li");
     li.innerHTML = `
@@ -42,7 +57,7 @@ function showTaskList() {
   });
 }
 
-// Show detail of selected task
+// Show task detail
 function showTaskDetail(taskId) {
   fetch(`/tasks/${taskId}`)
     .then(res => res.json())
@@ -51,10 +66,8 @@ function showTaskDetail(taskId) {
       document.getElementById("task-detail").classList.remove("hidden");
 
       document.getElementById("taskTitle").innerText = task.title;
-      document.getElementById("pnmlDownload").href = task.editable_pnml_url;
 
-
-      // Shared description
+      // Shared markdown description
       document.getElementById("descriptionBlock").innerHTML = marked.parse(task.shared_description_md || "");
 
       // Translation PDF
@@ -62,22 +75,25 @@ function showTaskDetail(taskId) {
       viewer.src = task.translation_file_url;
       document.getElementById("translationDownload").href = task.translation_file_url;
 
-      // Activity list
+      // Activity list (markdown)
       document.getElementById("activityListBlock").innerHTML = marked.parse(task.activity_md || "");
+
+      // PNML download link
+      document.getElementById("pnmlDownload").href = task.editable_pnml_url;
 
       currentTaskId = task.id;
       clearStatus();
     });
 }
 
-// Back to task list
+// Go back to task list
 function goBack() {
   document.getElementById("task-detail").classList.add("hidden");
   document.getElementById("task-list").classList.remove("hidden");
   clearStatus();
 }
 
-// Clear UI messages
+// Clear upload + validation messages
 function clearStatus() {
   document.getElementById("checkResult").innerText = "";
   document.getElementById("uploadStatus").innerText = "";
@@ -85,27 +101,44 @@ function clearStatus() {
   document.getElementById("override").checked = false;
 }
 
-// WF-net drag + check
+// Drag & drop validation
 const dropZone = document.getElementById("dragDrop");
-dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("active"); });
-dropZone.addEventListener("dragleave", () => dropZone.classList.remove("active"));
+
+dropZone.addEventListener("dragover", e => {
+  e.preventDefault();
+  dropZone.classList.add("active");
+});
+
+dropZone.addEventListener("dragleave", () => {
+  dropZone.classList.remove("active");
+});
+
 dropZone.addEventListener("drop", e => {
-  e.preventDefault(); dropZone.classList.remove("active");
+  e.preventDefault();
+  dropZone.classList.remove("active");
+
   const file = e.dataTransfer.files[0];
-  if (file) validateFile(file);
+  if (!file) return;
+
+  validateFile(file);
 });
 
 function validateFile(file) {
   const formData = new FormData();
   formData.append("file", file);
-  fetch("/upload", { method: "POST", body: formData })
+
+  fetch("/validate", {
+    method: "POST",
+    body: formData,
+  })
     .then(res => res.json())
     .then(data => {
       document.getElementById("checkResult").innerText = data.valid
-        ? "✅ Valid WF-net!" : "❌ Not a valid WF-net.";
+        ? "✅ This is a valid WF-net!"
+        : "❌ Not a valid WF-net.";
     })
     .catch(() => {
-      document.getElementById("checkResult").innerText = "❌ Validation error.";
+      document.getElementById("checkResult").innerText = "❌ Error during validation.";
     });
 }
 
@@ -142,3 +175,33 @@ function uploadFile() {
       document.getElementById("uploadStatus").innerText = "❌ Upload error.";
     });
 }
+
+// --- Drag-and-Drop for Upload Section ---
+const uploadDropZone = document.getElementById("uploadDropZone");
+
+uploadDropZone.addEventListener("dragover", e => {
+  e.preventDefault();
+  uploadDropZone.classList.add("active");
+});
+
+uploadDropZone.addEventListener("dragleave", () => {
+  uploadDropZone.classList.remove("active");
+});
+
+uploadDropZone.addEventListener("drop", e => {
+  e.preventDefault();
+  uploadDropZone.classList.remove("active");
+
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+
+  // Place dropped file into the upload input for reusability
+  const uploadInput = document.getElementById("uploadInput");
+  const dataTransfer = new DataTransfer();
+  dataTransfer.items.add(file);
+  uploadInput.files = dataTransfer.files;
+
+  // Optionally auto-upload here:
+  // uploadFile();
+});
+
