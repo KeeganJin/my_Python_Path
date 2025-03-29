@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evaluation Upload Platform</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Evaluation Upload Platform</h1>
+
+    <!-- User Info -->
+    <div id="user-info">
+      <h2>Enter Your Info</h2>
+      <input type="text" id="userId" placeholder="User ID" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <button onclick="saveUserInfo()">Continue</button>
+    </div>
+
+    <!-- Task List -->
+    <div id="task-list" class="hidden">
+      <h2>Select a Task</h2>
+      <ul id="tasks"></ul>
+    </div>
+
+    <!-- Task Detail -->
+    <div id="task-detail" class="hidden">
+      <h2 id="taskTitle">Task Detail</h2>
+
+      <!-- Shared Description -->
+      <div>
+        <h3>Task Description</h3>
+        <div id="descriptionBlock"></div>
+      </div>
+
+      <!-- Side-by-side: Translation PDF + Activity Markdown -->
+      <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+        <div style="flex: 1;">
+          <h3>Machine Translation</h3>
+          <iframe id="translationViewer" width="100%" height="300px"></iframe>
+          <p><a id="translationDownload" href="#" download>Download Translation File</a></p>
+        </div>
+
+        <div style="flex: 1;">
+          <h3>Activity List</h3>
+          <div id="activityListBlock"></div>
+        </div>
+      </div>
+
+      <!-- Embedded Petri Net Builder -->
+      <div style="margin-top: 2rem;">
+  <h3>Start with This Petri Net</h3>
+  <p>
+    <a id="pnmlDownload" href="#" download>⬇️ Download Initial PNML File</a>
+  </p>
+
+  <h3>Edit Your Petri Net</h3>
+  <iframe
+    src="https://www.fernuni-hagen.de/ilovepetrinets/fapra/wise23/rot/index.html"
+    width="100%"
+    height="600px"
+    style="border: 1px solid #ccc; border-radius: 8px;"
+  ></iframe>
+  <p>
+    After editing, click <strong>Export</strong> in the editor and upload your PNML file below.
+  </p>
+</div>
+<!-- WF-net Check: Drag-and-Drop -->
+<div style="margin-top: 2rem;">
+  <h3>Validate Your Petri Net (WF-net Check)</h3>
+  <div id="dragDrop" class="drop-zone" style="padding: 1rem; border: 2px dashed #999; text-align: center; border-radius: 8px;">
+    Drag and drop your PNML file here to check if it’s a valid WF-net.
+  </div>
+  <p id="checkResult" style="margin-top: 0.5rem; font-weight: bold;"></p>
+</div>
+
+
+      <!-- Upload Section -->
+      <div style="margin-top: 2rem;">
+        <h3>Upload File</h3>
+        <input type="file" id="uploadInput" />
+        <button onclick="uploadFile()">Upload</button>
+        <label><input type="checkbox" id="override" /> Allow override</label>
+        <p id="uploadStatus"></p>
+      </div>
+
+      <button onclick="goBack()">Back to Tasks</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
